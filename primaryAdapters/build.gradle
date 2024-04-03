@@ -1,0 +1,33 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.4'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+java {
+	sourceCompatibility = '21'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-hateoas
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-hateoas', version: '3.2.4'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.2.4'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+dependencies {
+	implementation(project(":application"))
+	implementation(project(":secondaryAdapters"))
+}

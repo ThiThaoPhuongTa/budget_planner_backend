@@ -1,1 +1,6 @@
 rootProject.name = 'budget_planner_backend'
+
+include("bootLoader")
+include("application")
+include("primaryAdapters")
+include("secondaryAdapters")
