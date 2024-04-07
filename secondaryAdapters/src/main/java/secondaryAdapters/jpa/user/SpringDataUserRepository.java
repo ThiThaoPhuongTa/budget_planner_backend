@@ -1,9 +1,9 @@
 package secondaryAdapters.jpa.user;
 
+import application.user.User;
+import application.user.UserId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
-public interface SpringDataUserRepository extends JpaRepository<UserRecord, UUID> {}
+public interface SpringDataUserRepository extends JpaRepository<User, UserId> {}

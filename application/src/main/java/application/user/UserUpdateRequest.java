@@ -1,5 +1,12 @@
 package application.user;
 
-import java.util.Optional;
+import application.ValueOfEnum;
+import jakarta.validation.constraints.Size;
 
-public record UserUpdateRequest(Optional<String> name, Optional<Role> role) {}
+public record UserUpdateRequest(
+  @Size(min = 2, max = 20)
+  String name,
+
+  @ValueOfEnum(enumClass = Role.class)
+  String role
+) {}

@@ -10,12 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class UserController {
@@ -30,8 +28,8 @@ public class UserController {
   }
 
   @GetMapping("/users")
-  CollectionModel<EntityModel<UserResponse>> all() {
-    List<EntityModel<UserResponse>> users = service.getAll().stream().map(assembler::toModel).toList();
+  CollectionModel<EntityModel<User>> all() {
+    List<EntityModel<User>> users = service.getAll().stream().map(assembler::toModel).toList();
 
     return CollectionModel.of(users,
       linkTo(methodOn(UserController.class).all()).withSelfRel()
@@ -39,14 +37,13 @@ public class UserController {
   }
 
   @GetMapping("/users/{id}")
-  EntityModel<UserResponse> one(@PathVariable UUID id) {
+  EntityModel<User> one(@PathVariable UUID id) {
     return assembler.toModel(service.getOne(new UserId(id)));
   }
 
   @PostMapping("/users")
-  ResponseEntity<?> newUser(@RequestBody @Valid UserCreateForm form) {
-    UserCreateRequest request = new UserCreateRequest(form.getName(), form.getEmail());
-    EntityModel<UserResponse> entity = assembler.toModel(service.create(request));
+  ResponseEntity<?> newUser(@RequestBody @Valid UserCreateRequest request) {
+    EntityModel<User> entity = assembler.toModel(service.create(request));
 
     return ResponseEntity
       .created(entity.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -54,12 +51,8 @@ public class UserController {
   }
 
   @PutMapping("/users/{id}")
-  ResponseEntity<?> replaceUser(@RequestBody @Valid UserUpdateForm form, @PathVariable UUID id) {
-    UserUpdateRequest request = new UserUpdateRequest(
-      Optional.ofNullable(form.getName()),
-      Optional.ofNullable(form.getRole()).map(Role::valueOf)
-    );
-    EntityModel<UserResponse> entity = assembler.toModel(service.update(request, new UserId(id)));
+  ResponseEntity<?> replaceUser(@RequestBody @Valid UserUpdateRequest request, @PathVariable UUID id) {
+    EntityModel<User> entity = assembler.toModel(service.update(request, new UserId(id)));
 
     return ResponseEntity
       .created(entity.getRequiredLink(IanaLinkRelations.SELF).toUri())

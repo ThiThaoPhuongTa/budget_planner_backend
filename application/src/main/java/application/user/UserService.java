@@ -21,7 +21,9 @@ public class UserService {
   public User update(UserUpdateRequest request, UserId id) {
     return repository.findById(id)
       .map(user -> {
-        User copied = user.copy(request.name().orElse(user.name()), request.role().orElse(user.role()));
+        String name = request.name() == null ? user.getName() : request.name();
+        Role role = request.role() == null ? user.getRole() : Role.valueOf(request.role());
+        User copied = user.copy(name, role);
         return repository.save(copied);
       }).orElseThrow(() -> new UserNotFoundException(id));
   }

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "secondaryAdapters.jpa")
-@EntityScan(basePackages = "secondaryAdapters.jpa")
+@EntityScan(basePackages = "application")
 public class JpaConfiguration {}

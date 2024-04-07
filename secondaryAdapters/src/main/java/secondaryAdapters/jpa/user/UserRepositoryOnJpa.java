@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserRepositoryOnJpa implements UserRepository {
@@ -21,25 +20,17 @@ public class UserRepositoryOnJpa implements UserRepository {
 
   @Override
   public List<User> findAll() {
-    return repository.findAll().stream().map(UserRepositoryOnJpa::toModel).collect(Collectors.toList());
+    return repository.findAll();
   }
 
   @Override
   public Optional<User> findById(UserId id) {
-    return repository.findById(id.value()).map(UserRepositoryOnJpa::toModel);
+    return repository.findById(id);
   }
 
   @Override
   public User save(User user) {
-    repository.save(toRecord(user));
+    repository.save(user);
     return user;
-  }
-
-  private static User toModel(UserRecord record) {
-    return new User(new UserId(record.getId()), record.getName(), record.getEmail(), record.getRole());
-  }
-
-  private static UserRecord toRecord(User user) {
-    return new UserRecord(user.id().value(), user.name(), user.email(), user.role());
   }
 }
