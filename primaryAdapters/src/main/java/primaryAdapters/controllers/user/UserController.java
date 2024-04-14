@@ -2,7 +2,6 @@ package primaryAdapters.controllers.user;
 
 import application.user.*;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -21,7 +20,6 @@ public class UserController {
 
   private final UserAssembler assembler;
 
-  @Autowired
   public UserController(UserService service, UserAssembler assembler) {
     this.service = service;
     this.assembler = assembler;

@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class IdSerializer<T> extends JsonSerializer<Id<T>> {
   @Override
-  public void serialize(Id id, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+  public void serialize(Id<T> id, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
     jsonGenerator.writeString(id.getValue().toString());
   }
 }
