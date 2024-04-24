@@ -31,4 +31,8 @@ public class UserService {
   public User create(UserCreateRequest request) {
     return repository.save(new User(request.name(), request.email()));
   }
+
+  public User create(User user) {
+    return repository.save(user);
+  }
 }

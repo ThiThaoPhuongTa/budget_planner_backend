@@ -15,6 +15,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
   private final UserService service;
 
@@ -25,7 +26,7 @@ public class UserController {
     this.assembler = assembler;
   }
 
-  @GetMapping("/users")
+  @GetMapping("")
   CollectionModel<EntityModel<User>> all() {
     List<EntityModel<User>> users = service.getAll().stream().map(assembler::toModel).toList();
 
@@ -34,12 +35,12 @@ public class UserController {
     );
   }
 
-  @GetMapping("/users/{id}")
+  @GetMapping("/{id}")
   EntityModel<User> one(@PathVariable UUID id) {
     return assembler.toModel(service.getOne(new UserId(id)));
   }
 
-  @PostMapping("/users")
+  @PostMapping("")
   ResponseEntity<?> newUser(@RequestBody @Valid UserCreateRequest request) {
     EntityModel<User> entity = assembler.toModel(service.create(request));
 
@@ -48,7 +49,7 @@ public class UserController {
       .body(entity);
   }
 
-  @PutMapping("/users/{id}")
+  @PutMapping("/{id}")
   ResponseEntity<?> replaceUser(@RequestBody @Valid UserUpdateRequest request, @PathVariable UUID id) {
     EntityModel<User> entity = assembler.toModel(service.update(request, new UserId(id)));
 

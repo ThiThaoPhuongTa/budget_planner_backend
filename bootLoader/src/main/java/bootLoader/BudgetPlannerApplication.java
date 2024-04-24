@@ -17,7 +17,9 @@ public class BudgetPlannerApplication {
     return new WebMvcConfigurer() {
       @Override
       public void addCorsMappings(@SuppressWarnings("null") CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:5173")
+        registry.addMapping("/**")
+          .allowedMethods("*")
+          .allowedOrigins("http://localhost:5173")
           .allowCredentials(true);
       }
     };

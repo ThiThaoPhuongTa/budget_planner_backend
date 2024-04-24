@@ -1,5 +1,7 @@
 package bootLoader;
 
+import application.plan.PlanRepository;
+import application.plan.PlanService;
 import application.user.UserRepository;
 import application.user.UserService;
 
@@ -14,5 +16,9 @@ public class Module {
   @Bean
   UserService userService(UserRepository repository) {
     return new UserService(repository);
+  }
+  @Bean
+  PlanService planService(PlanRepository repository) {
+    return new PlanService(repository);
   }
 }
