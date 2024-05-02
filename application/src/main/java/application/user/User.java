@@ -14,7 +14,6 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @Table(name = "users")
-@SecondaryTable(name = "plans", foreignKey = @ForeignKey(name = "user_id"))
 public class User {
   @JsonSerialize(using = IdSerializer.class)
   @EmbeddedId

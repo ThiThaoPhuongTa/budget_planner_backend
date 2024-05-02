@@ -28,7 +28,7 @@ public class AuthConfiguration {
           .redirectionEndpoint(redirection -> redirection
             .baseUri("/login/oauth2/code/*")
           )
-          .defaultSuccessUrl("http://localhost:5137")
+          .defaultSuccessUrl("/redirect")
       )
       .logout(l ->
         l.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
